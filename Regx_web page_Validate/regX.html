@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Animated Form</title>
+    <style>
+        body {
+            background-image: url('pic3.jpg');
+            background-size: 40%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+
+            background-size: 80%;
+            background-position: center;
+            width: 400px;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: slide-up 1.5s ease-in-out;
+        }
+
+             @keyframes slide-up {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+         h1 {
+            margin-top: 40px;
+            color: #fff;
+        }
+
+        form {
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: transparent;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+             display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input[type="button"] {
+            width: 100%;
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 4px;
+            padding: 16px;
+            font-size: 16px;
+            z-index: 1;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Regular Expression Validation</h1>
+    <form>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Enter an email address" required="required"><br><br>
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter a phone number" required="required"><br><br>
+        <input type="button" value="Validate" onclick="validateInput()">
+    </form>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function showToast(message) {
+            var toast = document.getElementById("toast");
+            toast.innerHTML = message;
+            toast.className = "toast show";
+            setTimeout(function() {
+                toast.className = "toast";
+            }, 3000);
+        }
+
+        function validateInput() {
+            var email = document.getElementById("email").value.trim();
+            var phone = document.getElementById("phone").value.trim();
+                                
+            var isEmailValid = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/.test(email);
+            var isPhoneValid = /^(079|078|077)\d{7}$/.test(phone);
+
+            if (isEmailValid && isPhoneValid) {
+                showToast("Email and phone number are valid");
+            } else if (!isEmailValid && isPhoneValid) {
+                showToast("Invalid email address");
+            } else if (isEmailValid && !isPhoneValid) {
+                showToast("Invalid phone number");
+            } else {
+                showToast("Invalid email address and phone number");
+            }
+        }
+    </script>
+    </div>
+</body>
+</html>
